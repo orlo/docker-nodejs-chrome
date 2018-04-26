@@ -2,8 +2,6 @@
 
 FROM node:9
 
-MAINTAINER technical+dockerhub@socialsignin.co.uk
-
 ARG http_proxy=""
 ARG https_proxy=""
 ARG DEBIAN_FRONTEND=noninteractive
