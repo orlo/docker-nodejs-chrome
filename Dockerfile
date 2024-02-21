@@ -1,6 +1,6 @@
 # docker build --build-arg http_proxy=http://192.168.0.66:3128 --build-arg https_proxy=http://192.168.0.66:3128 .
 
-FROM node:10-stretch
+FROM node:12-bullseye
 
 ARG http_proxy=""
 ARG https_proxy=""
