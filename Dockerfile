@@ -1,10 +1,27 @@
 # docker build --build-arg http_proxy=http://192.168.0.66:3128 --build-arg https_proxy=http://192.168.0.66:3128 .
 
-FROM node:10-stretch
+FROM debian:bullseye
 
 ARG http_proxy=""
 ARG https_proxy=""
 ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get -q update && apt-get -qy install curl wget gpg apt-transport-https ca-certificates && apt-get clean 
+
+# ancient node...
+ENV NODE_VERSION=10.24.1
+
+# crap
+RUN mkdir -p /usr/local/nvm && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash ;
+
+# nodejs and tools
+RUN bash -c 'source $HOME/.nvm/nvm.sh  && \
+    nvm install $NODE_VERSION && nvm use $NODE_VERSION && nvm alias default $NODE_VERSION'
+
+# probably: /root/.nvm/versions/node/v10.24.1/bin/node
+
+RUN ln -s /root/.nvm/versions/node/v${NODE_VERSION}/bin/node /usr/local/bin/node
+RUN ln -s /root/.nvm/versions/node/v${NODE_VERSION}/bin/npm /usr/local/bin/npm
 
 # Xvfb
 RUN apt-get update -qqy && \
