@@ -19,7 +19,7 @@ RUN wget -q -O /tmp/key.asc https://dl-ssl.google.com/linux/linux_signing_key.pu
 	&& echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
 	&& apt-get -qqy update \
 	&& eatmydata -- apt-get -qqy install google-chrome-stable \
-	&& eatmydata -- apt-get -qqy install awscli --no-install-recommends \
+	&& eatmydata -- apt-get -qqy install awscli zstd --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
 	&& sed -i 's/"$HERE\/chrome"/xvfb-run "$HERE\/chrome" --no-sandbox/g' /opt/google/chrome/google-chrome
 
